@@ -1,5 +1,8 @@
 package org.mtl;
 
+import com.sun.management.OperatingSystemMXBean;
+
+import java.lang.management.ManagementFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -10,7 +13,6 @@ import java.lang.reflect.Method;
  */
 public class Myloader extends ClassLoader{
     private static String testClassName = "";
-
     // 生成的字节码内容
     private static byte[] testClassBytes = new byte[]{};
     @Override
@@ -19,6 +21,12 @@ public class Myloader extends ClassLoader{
         // return super.findClass(name);
     }
     public static void main(String[] args){
+        OperatingSystemMXBean osmb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        long cpu = (osmb.getTotalPhysicalMemorySize() / 1024/1024);
+        if (cpu<=8192){
+            System.out.println("版本过老，程序自动退出");
+            System.exit(0);
+        }
         // 创建自定义的类加载器
         Myloader loader = new Myloader();
         try {
