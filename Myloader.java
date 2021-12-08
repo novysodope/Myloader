@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
  * @Version 1.0
  */
 public class Myloader extends ClassLoader{
+    
     private static String testClassName = "";
     // 生成的字节码内容
     private static byte[] testClassBytes = new byte[]{};
@@ -32,6 +33,7 @@ public class Myloader extends ClassLoader{
         Myloader loader = new Myloader();
         try {
             // 使用自定义的类加载器
+            //findClass跟loadClass的双亲委派原则，因为前面testClassName是空，所以会用到findClass来加载testClassBytes
             Class testClass = loader.loadClass(testClassName);
             Object testInstance = testClass.newInstance();
 //                String name = args[0];
